@@ -3,13 +3,13 @@
 
 #include <QTabBar>
 
-class MyTabBar : public QTabBar
+class DnDTabBar : public QTabBar
 {
     Q_OBJECT
 
 public:
-    MyTabBar(QWidget * parent = Q_NULLPTR);
-    ~MyTabBar();
+    DnDTabBar(QWidget * parent = Q_NULLPTR);
+    ~DnDTabBar();
 
 signals:
     void openFileRequest(QString/*fileName*/,int/*tabIndex*/);

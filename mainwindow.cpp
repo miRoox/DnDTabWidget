@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "mytabwidget.h"
+#include "dndtabwidget.h"
 #include <QString>
 #include <QAction>
 #include <QTextBrowser>
@@ -25,11 +25,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    auto tabWidget = new MyTabWidget(this);
+    auto tabWidget = new DnDTabWidget(this);
     setCentralWidget(tabWidget);
     setAcceptDrops(true);
-    connect(tabWidget,&MyTabWidget::openFileRequest,this,&MainWindow::openFileAt);
-    connect(tabWidget,&MyTabWidget::dragTabRequest,this,&MainWindow::dragTab);
+    connect(tabWidget,&DnDTabWidget::openFileRequest,this,&MainWindow::openFileAt);
+    connect(tabWidget,&DnDTabWidget::dragTabRequest,this,&MainWindow::dragTab);
 }
 
 MainWindow::~MainWindow()
@@ -57,7 +57,7 @@ void MainWindow::openFileAt(QString fileName, int tabIndex)
     in.setAutoDetectUnicode(true);
 
     auto browser = new QTextBrowser(this);
-    auto tabWidget = qobject_cast<MyTabWidget*>(centralWidget());
+    auto tabWidget = qobject_cast<DnDTabWidget*>(centralWidget());
     Q_ASSERT(tabWidget);
     auto index = tabWidget->insertTab(tabIndex,browser,QFileInfo(fileName).baseName());
     tabWidget->setCurrentIndex(index);
@@ -74,7 +74,7 @@ void MainWindow::openFileAt(QString fileName, int tabIndex)
 void MainWindow::dragTab(int tabIndex)
 {
     //if(!isTabMovable(tabIndex)) return;
-    auto tabWidget = qobject_cast<MyTabWidget*>(centralWidget());
+    auto tabWidget = qobject_cast<DnDTabWidget*>(centralWidget());
     Q_ASSERT(tabWidget);
     auto browser = qobject_cast<QTextBrowser*>(tabWidget->widget(tabIndex));
     Q_ASSERT(browser);

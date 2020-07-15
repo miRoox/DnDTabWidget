@@ -1,4 +1,4 @@
-#include "mytabbar.h"
+#include "dndtabbar.h"
 #include <QUrl>
 #include <QMimeData>
 #include <QDragEnterEvent>
@@ -6,24 +6,24 @@
 #include <QMouseEvent>
 #include <QDebug>
 
-MyTabBar::MyTabBar(QWidget *parent)
+DnDTabBar::DnDTabBar(QWidget *parent)
     : QTabBar(parent)
 {
     setMovable(true);
     setAcceptDrops(true);
 }
 
-MyTabBar::~MyTabBar()
+DnDTabBar::~DnDTabBar()
 {}
 
-void MyTabBar::dragEnterEvent(QDragEnterEvent *event)
+void DnDTabBar::dragEnterEvent(QDragEnterEvent *event)
 {
     if(event->mimeData()->hasUrls())
         event->acceptProposedAction();
     else event->ignore();
 }
 
-void MyTabBar::dropEvent(QDropEvent *event)
+void DnDTabBar::dropEvent(QDropEvent *event)
 {
     const QMimeData * mimeData = event->mimeData();
     if(mimeData->hasUrls()) {
@@ -38,7 +38,7 @@ void MyTabBar::dropEvent(QDropEvent *event)
     }
 }
 
-void MyTabBar::mousePressEvent(QMouseEvent *event)
+void DnDTabBar::mousePressEvent(QMouseEvent *event)
 {
     if(event->buttons() == Qt::MiddleButton) {
         emit tabCloseRequested(tabAt(event->pos()));
@@ -46,7 +46,7 @@ void MyTabBar::mousePressEvent(QMouseEvent *event)
     QTabBar::mousePressEvent(event);
 }
 
-void MyTabBar::mouseMoveEvent(QMouseEvent *event)
+void DnDTabBar::mouseMoveEvent(QMouseEvent *event)
 {
     if(event->buttons()==Qt::LeftButton) {
         if(!geometry().contains(event->pos())) {

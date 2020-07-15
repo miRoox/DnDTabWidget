@@ -3,13 +3,13 @@
 
 #include <QTabWidget>
 
-class MyTabWidget : public QTabWidget
+class DnDTabWidget : public QTabWidget
 {
     Q_OBJECT
 
 public:
-    MyTabWidget(QWidget * parent = Q_NULLPTR);
-    ~MyTabWidget();
+    DnDTabWidget(QWidget * parent = Q_NULLPTR);
+    ~DnDTabWidget();
     void removeTabActually(int index);
 
 signals:
